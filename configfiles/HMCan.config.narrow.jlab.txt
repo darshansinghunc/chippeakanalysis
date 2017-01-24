@@ -1,0 +1,17 @@
+format bam 
+GCIndex /home/darshan/Software/pyminer-hmcan-0b033a4b07a2/data/GC_profile_100KbWindow_Mapp76_hg19.cnp
+genomePath /media/ddrive/data/ReferenceSets/Human/chromosomes
+minLength 100
+medLength 250
+maxLength 400
+smallBinLength 50
+largeBinLength 100000
+pvalueThreshold 0.001
+mergeDistance 0
+iterationThreshold 5
+finalThreshold 0
+maxIter 20
+PosteriorProb 0.99
+PrintWig True
+PrintPosterior True
+blackListFile /media/ddrive/project/config/HMCan_dummy-blacklist.bed
