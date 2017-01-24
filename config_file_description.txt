@@ -1,0 +1,71 @@
+** Config File Details ** 
+
+Config file is set-up in json format. A sample file is provided. The user of the software should create their own config file in the format of provided sample config file.
+
+Following are the descriptions of items in the config file:
+
+project: 
+	name: The name of the project. This will also be the name of the output directory. 
+	cell_line: A list of cell lines used in project. This field is only informative.
+	enrichment: A list of enrichments used in the project. This field is only informative.
+	dosage: A list of drugs, dosage, time used in the project. This field is only informative
+
+datasets:
+	index_file_parameters: 
+		index: The full path of the file that contains the path of the chip-seq dataset and a simpler code name for the file. A sample file is provided.
+		relative: If the path of the chip-seq file is relative to index file, then relative is 1. If the path of the chip-seq file is full path, relative is 0.
+	comparison: 
+		treatment: The chip-seq treatment whose peaks are computed
+		control: The control (background) chip-seq for the treatment
+
+peak_calling:
+	tools: The list of tools used by this software. Do not change the tool names.
+		MACS:
+			exec: MACS run command
+			options: MACS run options
+		HMCan:
+			exec: HMCan run command
+			config_file: HMCan config file. The provided sample can be used as it is. 
+		macs_cnv_region_identifiers: HMCan appears to find peaks correctly in the CNV regions. This section finds the regions where MACS cannot find the peaks and appear to be CNV regions
+			min_size: Minimum size of genome where MACS cannot find a peak
+			min_coverage_gain_over_average: CNV regions are identified by looking for regions in control where coverage is gained compared to average over the genome. This parameter is threshold for the coverage gain
+			window_size: The size of window over which the coverage gain is computed
+
+genefiles: Path of all the files used by the software
+	genegtf: Reference gene file in gtf format
+	genetssgtf: Reference gene TSS file in gtf format
+	transcriptionfactorfile: List of transcription factors
+	kinasefile: List of kinases
+
+analysis: 
+	union: The list of treatments that are used for combine the peaks for consolidated analysis
+	report: The list of treatments that are output in the report
+	parameters:
+		readfragmentsize: Read size of the chip-seq 
+		stitchpeakdistance: Distance threshold to combine two nearby peaks
+                promotordistance: Distance threshold for peak to be considered in promoter region 
+		enhancerdistance: Distance threshold for peak to be considered in enhancer region 
+		plot_avg_halfwindowwidth: Distance around TSS for plotting average for the complete genome
+		plot_gene_halfwindowwidth: Distance around a gene for plotting the chip-seq coverage
+		superenhancercutoff: reads per million for a peak to be considered a superenhancer
+	redo: Set the flag to 1 if the program should re-run over various sections of the program
+		peak_calling: if MACS and HMCan should rerun
+		projectjson: if the consolidation of peaks should rerun
+		projectpeakattrjson: if assigning genes to peaks should rerun
+		csv: if the final report writing should rerun
+		plot_avg_TSS: if plotting the average TSS should rerun
+		plot_superenhancer: if superenhancer plot should rerun
+		plot_chip_coverage: if chip coverage plot for genes should rerun
+
+output:
+	folder: The path of the output folder
+	report: specific filters to be used for the report. Each item is the suffix of the report name
+		threshold: minimum chip coverage for the peak
+		target: treatment used in comparison of fold change
+		constraints: Other treaments and their fold change compared to the target
+	plot:
+		avg_plot_samplelists: list of treatments in the average TSS coverage plot
+		plotcoveragegenelist: list of the genes for chip coverage plot
+		superenhancer: list of treatments for super enhancer plots and the list of genes 
+		
+		 
